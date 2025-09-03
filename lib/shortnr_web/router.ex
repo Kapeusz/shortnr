@@ -68,6 +68,7 @@ defmodule ShortnrWeb.Router do
       on_mount: [{ShortnrWeb.AdminAuth, :ensure_authenticated}] do
       live "/admins/settings", AdminSettingsLive, :edit
       live "/admins/settings/confirm_email/:token", AdminSettingsLive, :confirm_email
+      live "/admin/shorten", AdminShortenLive, :index
     end
   end
 
