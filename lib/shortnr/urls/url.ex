@@ -8,7 +8,7 @@ defmodule Shortnr.Urls.Url do
   schema "urls" do
     field :long_url, :string
     field :redirect_count, :integer, default: 0
-    field :expires_at, :utc_datetime
+    field :expires_at, :utc_datetime_usec
 
     timestamps()
   end

@@ -14,6 +14,8 @@ defmodule Shortnr.Application do
       {Phoenix.PubSub, name: Shortnr.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: Shortnr.Finch},
+      # Start Oban for background jobs (TTL cleanup)
+      {Oban, Application.fetch_env!(:shortnr, Oban)},
       # Start a worker by calling: Shortnr.Worker.start_link(arg)
       # {Shortnr.Worker, arg},
       # Start to serve requests, typically the last entry
