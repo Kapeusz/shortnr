@@ -18,3 +18,6 @@ config :logger, level: :info
 
 # Runtime production configuration, including reading
 # of environment variables, is done on config/runtime.exs.
+
+# Auto-derive worker_id per allocation/node in production
+config :shortnr, Shortnr.Slug, worker_id: :auto

@@ -46,7 +46,6 @@ defmodule ShortnrWeb.Router do
   end
 
   ## Authentication routes
-
   scope "/", ShortnrWeb do
     pipe_through [:browser, :redirect_if_admin_is_authenticated]
 

@@ -16,6 +16,7 @@ config :shortnr, Shortnr.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2
 
+
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :shortnr, ShortnrWeb.Endpoint,
@@ -43,3 +44,6 @@ config :phoenix_live_view,
 config :shortnr, Oban,
   queues: false,
   plugins: false
+
+# Fixed worker_id for stateless Snowflake slug generation in tests
+config :shortnr, Shortnr.Slug, worker_id: 7

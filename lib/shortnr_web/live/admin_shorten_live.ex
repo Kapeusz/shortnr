@@ -5,7 +5,7 @@ defmodule ShortnrWeb.AdminShortenLive do
   alias Shortnr.Urls.Url
 
   def mount(_params, _session, socket) do
-    changeset = Url.changeset(%Url{}, %{})
+    changeset = Url.input_changeset(%Url{}, %{})
     urls = Urls.list_urls()
 
     {:ok,
@@ -18,7 +18,7 @@ defmodule ShortnrWeb.AdminShortenLive do
   def handle_event("validate", %{"url" => url_params}, socket) do
     changeset =
       %Url{}
-      |> Urls.change_url(url_params)
+      |> Url.input_changeset(url_params)
       |> Map.put(:action, :validate)
 
     {:noreply, assign(socket, :changeset, changeset)}
@@ -28,7 +28,7 @@ defmodule ShortnrWeb.AdminShortenLive do
     case Urls.create_url(url_params) do
       {:ok, _url} ->
         urls = Urls.list_urls()
-        changeset = Urls.change_url(%Url{})
+        changeset = Url.input_changeset(%Url{}, %{})
         {:noreply,
          socket
          |> put_flash(:info, "URL created")
@@ -46,9 +46,8 @@ defmodule ShortnrWeb.AdminShortenLive do
 
     <.simple_form :let={f} for={@changeset} as={:url} phx-change="validate" phx-submit="save">
       <.input field={f[:long_url]} type="url" label="Long URL" placeholder="https://example.com/very/long/path" required />
-      <.input field={f[:shortened_url]} type="text" label="Shortened Slug" placeholder="e.g. exmpl" required />
       <:actions>
-        <.button type="submit">Save</.button>
+        <.button type="submit">Create Short URL</.button>
       </:actions>
     </.simple_form>
 

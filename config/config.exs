@@ -67,10 +67,20 @@ config :shortnr, Oban,
   queues: [default: 10],
   plugins: [
     {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7},
-    {Oban.Plugins.Cron, crontab: [
-      {"*/5 * * * *", Shortnr.Workers.UrlTtlCleanupWorker}
-    ]}
+    {Oban.Plugins.Cron,
+     crontab: [
+       {"*/5 * * * *", Shortnr.Workers.UrlTtlCleanupWorker}
+     ]}
   ]
+
+# URL cache TTLs
+config :shortnr, Shortnr.UrlCache,
+  positive_ttl_ms: 60_000,
+  negative_ttl_ms: 5_000
+
+config :shortnr, Shortnr.Slug,
+  epoch_ms: 1_704_067_200_000,
+  worker_id: :auto
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
